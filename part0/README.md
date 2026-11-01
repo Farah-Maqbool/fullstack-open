@@ -34,6 +34,6 @@ sequenceDiagram
   activate Server
   Server-->>Browser: [{ "content": "Hhhh", "date": "2026-11-01T09:41:49.568Z" }, ... ]
   deactivate Server  
-
-  
 ```
+
+### Exercise 0.5 - Single Page Diagram
