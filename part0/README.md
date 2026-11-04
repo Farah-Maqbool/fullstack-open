@@ -37,3 +37,32 @@ sequenceDiagram
 ```
 
 ### Exercise 0.5 - Single Page Diagram
+
+```mermaid
+sequenceDiagram
+  participant Browser
+  participant Server
+
+  Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+  activate Server
+  Server-->>Browser: HTML document
+  deactivate Server
+
+  Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+  activate Server
+  Server-->>Browser: CSS file
+  deactivate Server
+
+  Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+  activate Server
+  Server-->>Browser: JS file
+  deactivate Server
+
+  Note right of Browser: Browser execute the JavaScript code which fetches JSON content from server
+
+  Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+  activate Server
+  Server-->>Browser: [{ "content": "ршлоллртлт", "date": "2026-11-04T18:26:58.053Z" }, ... ]
+  deactivate Server  
+```
+
