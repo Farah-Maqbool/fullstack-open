@@ -14,6 +14,8 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(8).fill(0))
+  const [highvoteindex, setHighVoteIndex] = useState(0)
+  
 
   const handleselected = (min, max) => {
     const random_num = Math.floor(Math.random() * (max - min + 1)) + min
@@ -24,16 +26,50 @@ const App = () => {
     const copy = [...votes]
     copy[selected] = copy[selected] + 1
     setVotes(copy)
+    selecthv(copy)
   }
 
-  console.log(votes)
+  
+
+  const highvotes = (copyvotes) => {
+    const max = Math.max(...copyvotes)
+    const hv_dict = {}  
+    for (let i = 0 ; i < copyvotes.length ; i++){
+        if (copyvotes[i] === max) {
+          hv_dict[i] = copyvotes[i]
+        }
+    }
+    return hv_dict
+  }
+
+  const selecthv = (copyvotes) => {
+    
+    const hv_dict = highvotes(copyvotes)
+    const keys = Object.keys(hv_dict)
+    
+    if (keys.length > 1){
+      const randomKey = keys[Math.floor(Math.random() * keys.length)]
+      setHighVoteIndex(Number(randomKey))
+    }
+    else {
+      setHighVoteIndex(Number(keys[0]))
+    }
+
+  }
+
   return (
     <div>
-      <h2>{anecdotes[selected]}</h2>
-      <h4>has {votes[selected]} votes</h4>
+      <h2>Anecdote of the day</h2>
+      <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
       
       <button onClick={() => handlevotes(selected)}>vote</button>
       <button onClick={() => handleselected(0, anecdotes.length - 1)}>next anecdote</button>
+
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[highvoteindex]}</p>
+      <p>has {votes[highvoteindex]} votes</p>
+
     </div>
   )
 }
